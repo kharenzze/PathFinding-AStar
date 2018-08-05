@@ -37,11 +37,11 @@ class World {
 
     Agent* target() { return &target_; }
     AgentGroup* ia() { return &ia_; }
+    uint8_t cost[MAP_L1_WIDTH][MAP_L1_HEIGHT];
   private:
     Agent target_;
     AgentGroup ia_;
     Sprite worldImg;
-    uint8_t cost[MAP_L1_WIDTH][MAP_L1_HEIGHT];
 };
 
 #endif

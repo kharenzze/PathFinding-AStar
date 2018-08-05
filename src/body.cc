@@ -104,8 +104,6 @@ void Body::update(const uint32_t dt) {
     updateManual(dt);
   }
 
-
-
   sprite_.setPosition(state_.position.x(), state_.position.y());
   sprite_.setRotation(state_.orientation);
 

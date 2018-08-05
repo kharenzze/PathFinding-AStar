@@ -1,11 +1,12 @@
 #include <world.h>
 
 World::World() {
+  std::cout << "start;";
+  loadCostMap();
   target_.init(this, Body::Color::Red, Body::Type::Autonomous);
   target_.setSteering(Body::SteeringMode::Pathfind);
   ia_.init(this, Body::Color::Green, Body::Type::Autonomous);
   worldImg.loadFromFile(WORLD_MAP);
-  loadCostMap();
 }
 
 void World::render() {
