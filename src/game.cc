@@ -20,7 +20,7 @@ void Game::init() {
 
   fps_sprite_.setVisible(false);
 
-  world_.target()->getKinematic()->position = MathLib::Vec2(0.0f, 0.0f);
+  world_.target()->getKinematic()->position = MathLib::Vec2(10.0f, 10.0f);
 }
 
 void Game::start() {
