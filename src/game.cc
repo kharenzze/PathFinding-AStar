@@ -9,7 +9,6 @@
 #include <window.h>
 #include <defines.h>
 #include <debug_draw.h>
-#include <mind.h>
 
 #include <cstdio>
 
