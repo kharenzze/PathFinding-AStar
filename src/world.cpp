@@ -44,4 +44,7 @@ void World::loadCostMap() {
   SDL_UnlockSurface(map_image);
 }
       
-    
+void World::mapPosToCostCell(MathLib::Vec2 pos, int *x, int *y) const {
+  *x = (int)pos.x() % 8;
+  *y = (int)pos.y() % 8;
+}

@@ -17,3 +17,13 @@ void Mind::init(World* world, Body* body) {
 void Mind::update(const uint32_t dt) {
   body_->setTarget(world_->target());
 }
+
+void Mind::setDest(MathLib::Vec2 dest) {
+  int x, y;
+  world_->mapPosToCostCell(dest, &x, &y);
+  const auto destCellPos = MathLib::Vec2(x, y);
+  world_->mapPosToCostCell(body_->getKinematic()->position, &x, &y);
+  const auto originCellPos = MathLib::Vec2(x, y);
+
+
+}

@@ -31,6 +31,7 @@ class World {
 
     void update(const float dt) { target_.update(dt); ia_.update(dt); }
     void render();
+    void mapPosToCostCell(MathLib::Vec2 pos, int *x, int *y) const;
 
     void loadCostMap();
 
@@ -41,8 +42,6 @@ class World {
     AgentGroup ia_;
     Sprite worldImg;
     uint8_t cost[MAP_L1_WIDTH][MAP_L1_HEIGHT];
-
-    void mapPosToCostCell(MathLib::Vec2 pos, int *x, int *y);
 };
 
 #endif
