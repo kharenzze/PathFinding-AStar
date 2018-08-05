@@ -29,7 +29,7 @@ class World {
     };
 
     void update(const float dt) { target_.update(dt); ia_.update(dt); }
-    void render() { target_.render(); ia_.render(); }
+    void render();
 
     Agent* target() { return &target_; }
     AgentGroup* ia() { return &ia_; }
