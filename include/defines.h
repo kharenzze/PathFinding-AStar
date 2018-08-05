@@ -31,6 +31,9 @@
 #define AGENT_GREEN_PATH "../media/agent_green.png"
 #define AGENT_PURPLE_PATH "../media/agent_purple.png"
 
+#define WORLD_MAP "../media/mapa.bmp" 
+#define COSTS_MAP "../media/costes.bmp" 
+
 #define FPS_FONT_SIZE 12
 
 struct KinematicStatus {

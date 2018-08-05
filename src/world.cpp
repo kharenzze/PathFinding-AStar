@@ -3,7 +3,7 @@
 World::World() {
   target_.init(this, Body::Color::Red, Body::Type::Manual);
   ia_.init(this, Body::Color::Green, Body::Type::Autonomous);
-  worldImg.loadFromFile("../media/mapa.bmp");
+  worldImg.loadFromFile(WORLD_MAP);
 }
 
 void World::render() {
