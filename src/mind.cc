@@ -24,20 +24,30 @@ void Mind::setDest(MathLib::Vec2 destPoint) {
   int xOrigin, yOrigin;
   world_->mapPosToCostCell(body_->getKinematic()->position, &xOrigin, &yOrigin);
 
-  initNodes();
+  _nodes.clear();
+  opened.clear();
+  closed.clear();
 
-  const auto origin = &_nodes[xOrigin][yOrigin];
-  const auto dest = &_nodes[xDest][yDest];
+  const auto origin = new Node;
+  origin->pos = MathLib::Vec2(xOrigin, yOrigin);
+  _nodes[xOrigin][yOrigin] = origin;
+
+  const auto dest = new Node;
+  dest->pos = MathLib::Vec2(xDest, yDest);
+  _nodes[xDest][yDest] = dest;
+
   auto current = origin;
 
   while (current != dest) {
     this->discover(current, dest);
     closed.push_back(current);
+    current->status = Node::Status::Closed;
 
     std::vector<Node*>::iterator it;
     Node * best = nullptr;
     float bestF;
-    for (it = opened.begin(); it != opened.end(); it++) {
+    int i = 0, bestI = 0;
+    for (it = opened.begin(); it != opened.end(); it++, i++) {
       const auto n = *it;
       if (!best) {
         best = n;
@@ -48,32 +58,21 @@ void Mind::setDest(MathLib::Vec2 destPoint) {
         if (_f < bestF) {
           best = n;
           bestF = _f;
+          bestI = i;
         }
       }
     }
 
     current = best;
+    opened.erase(opened.begin()+bestI);
+  }
+  while (current != origin) {
+    current->father->child = current;
+    current = current->father;
   }
   std::cout << "done";
-}
 
-void Mind::initNodes() {
-  for (int i = 0; i < MAP_H; i++) {
-    for (int j = 0; i < MAP_H; i++) {
-      Node *n = &_nodes[i][j];
-      n->pos = MathLib::Vec2(i,j);
-      const auto isBlocked = world_->cost[i][j];
-      if (isBlocked) {
-        n->status = Node::Status::Blocked;
-      } else {
-        n->status = Node::Status::None;
-      }
-      n->G = 0;
-      n->H = 0;
-      n->child = nullptr;
-      n->father = nullptr;
-    }
-  }
+  body_->resetStep();
 }
 
 void Mind::discover(Node * center, Node * goal) {
@@ -100,9 +99,18 @@ void Mind::discover(Node * center, Node * goal) {
 
   for (int i = minX; i <= maxX; i++) {
     for (int j = minY; j <= maxY; j++) {
-      Node * n = &_nodes[i][j];
+      Node * n = _nodes[i][j];
       if (n == center) {
         break;
+      }
+      const auto isBlocked = world_->cost[i][j];
+      if (isBlocked) {
+        break;
+      }
+      if (!n) {
+        n = new Node();
+        n->pos = MathLib::Vec2(i, j);
+        _nodes[i][j] = n;
       }
       const bool isDiagonal = !(i == x || j == y);
       const auto status = n->status;

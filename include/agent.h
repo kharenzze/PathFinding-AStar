@@ -32,6 +32,7 @@ class Agent {
     KinematicStatus* getKinematic() { return body_.getKinematic(); }
     Body* getBody() { return &body_; }
     Mind* getMind() { return &mind_; }
+    World* getWorld() { return world_; }
   private:
     World * world_;
 

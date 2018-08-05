@@ -1,7 +1,6 @@
 #include <world.h>
 
 World::World() {
-  std::cout << "start;";
   loadCostMap();
   target_.init(this, Body::Color::Red, Body::Type::Autonomous);
   target_.setSteering(Body::SteeringMode::Pathfind);
@@ -17,7 +16,7 @@ void World::render() {
 
 void World::loadCostMap() {
   SDL_Surface* map_image = nullptr;
-  if ((map_image = SDL_LoadBMP("COSTS_MAP")) == false)
+  if ((map_image = SDL_LoadBMP(COSTS_MAP)) == false)
     return;
 
   SDL_LockSurface(map_image);
@@ -46,6 +45,6 @@ void World::loadCostMap() {
 }
       
 void World::mapPosToCostCell(MathLib::Vec2 pos, int *x, int *y) const {
-  *x = (int)pos.x() % 8;
-  *y = (int)pos.y() % 8;
+  *x = (int)pos.x() / 8;
+  *y = (int)pos.y() / 8;
 }

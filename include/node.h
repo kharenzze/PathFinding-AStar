@@ -11,12 +11,14 @@ public:
     Blocked
   };
 
+  Node() {}
+  ~Node() {}
 
   MathLib::Vec2 pos;
-  float G, H;
-  Status status;
-  Node * father;
-  Node * child; 
+  float G = 0, H = 0;
+  Status status = Status::None;
+  Node * father = nullptr;
+  Node * child = nullptr; 
 
   float F() { return G + H; }
   float setG(bool isDiag) {

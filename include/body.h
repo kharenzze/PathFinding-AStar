@@ -11,6 +11,7 @@
 #include <sprite.h>
 #include <defines.h>
 #include <mathlib/vec2.h>
+#include <node.h>
 
 class Agent;
 class AgentGroup;
@@ -62,6 +63,7 @@ class Body {
     void setSteering(const SteeringMode mode) { steering_mode_ = mode; };
     const KinematicStatus* getKinematic() const { return &state_; }
     KinematicStatus* getKinematic() { return &state_; }
+    void resetStep();
   private:
     void updateManual(const uint32_t);
     void setOrientation(const MathLib::Vec2& velocity);
@@ -89,7 +91,7 @@ class Body {
     void cohesion(const KinematicStatus& character, AgentGroup* agentGroup, Steering* steering) const;
     void alignment(const KinematicStatus& character, AgentGroup* agentGroup, Steering* steering) const;
     void flocking(const KinematicStatus& character, AgentGroup* agentGroup, const KinematicStatus* target, Steering* steering) const;
-    void pathfind(const Agent* me, Steering* steering) const;
+    void pathfind(Agent* me, Steering* steering) const;
 
 
     Sprite sprite_;

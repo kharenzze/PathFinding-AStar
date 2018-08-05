@@ -12,6 +12,7 @@
 #include <mathlib/vec2.h>
 #include <node.h>
 #include <vector>
+#include <map>
 
 #define MAP_H 128
 #define MAP_W 128
@@ -27,13 +28,12 @@ class Mind {
     void init(World* world, Body* body);
     void update(const uint32_t dt);
     void setDest(MathLib::Vec2 dest);
+    std::vector<Node*> closed, opened;
   private:
-    void initNodes();
     void discover(Node* center, Node* goal);
     World* world_;
     Body* body_;
-    Node _nodes[MAP_H][MAP_W];
-    std::vector<Node*> closed, opened;
+    std::map<int, std::map<int, Node*>> _nodes;
 };
 
 #endif

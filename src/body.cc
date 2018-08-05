@@ -10,6 +10,7 @@
 #include <AgentGroup.h>
 #include <defines.h>
 #include <debug_draw.h>
+#include <world.h>
 
 const float SQUARED_RADIUS = 25.0f;
 const float TIME_TO_TARGET = 0.5f;
@@ -91,8 +92,7 @@ void Body::update(const uint32_t dt) {
       this->flocking(state_, agentGroup_, target_->getKinematic(), &steering);
       break;
     case Body::SteeringMode::Pathfind:
-      this->arrive(state_, target_->getKinematic(), &steering);
-      //this->pathfind(target_, &steering);
+      this->pathfind(target_, &steering);
       break;
     }
     if (isKinematic) {
@@ -436,6 +436,32 @@ void Body::flocking(const KinematicStatus& character, AgentGroup* agentGroup,con
   steering->angular = face.angular * 0.7f + align.angular * 0.3f;
 }
 
-void Body::pathfind(const Agent* me, Steering* steering) const {
+Node * _step = nullptr;
 
+void Body::pathfind(Agent* me, Steering* steering) const {
+  const std::vector<Node*> *list = &me->getMind()->closed;
+  if (!(list->size())) {
+    return;
+  }
+  KinematicStatus st;
+  if (!_step) {
+    _step = list->at(0);
+  }
+  else {
+    int x, y;
+    me->getWorld()->mapPosToCostCell(me->getKinematic()->position, &x, &y);
+    MathLib::Vec2 now(x, y);
+    if ((_step->pos - now).length() < 2) {
+      if (_step->child) {
+        _step = _step->child;
+      }
+    }
+  }
+  st.position = _step->pos * 8 + MathLib::Vec2(4,4);
+  auto character = me->getKinematic();
+  this->arrive(*character, &st, steering);
+}
+
+void Body::resetStep() {
+  _step = nullptr;
 }
