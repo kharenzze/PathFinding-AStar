@@ -2,7 +2,7 @@ os.execute("mkdir bin")
 os.execute("cp -r dll/x64/* bin/")
 
 local project_list = {
-  "EJ02.Steering"
+  "EJ03.Pathfinding"
 }
 
 local function new_project(name)
