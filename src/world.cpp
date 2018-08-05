@@ -1,7 +1,8 @@
 #include <world.h>
 
 World::World() {
-  target_.init(this, Body::Color::Red, Body::Type::Manual);
+  target_.init(this, Body::Color::Red, Body::Type::Autonomous);
+  target_.setSteering(Body::SteeringMode::Pathfind);
   ia_.init(this, Body::Color::Green, Body::Type::Autonomous);
   worldImg.loadFromFile(WORLD_MAP);
   loadCostMap();

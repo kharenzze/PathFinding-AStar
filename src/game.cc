@@ -9,6 +9,7 @@
 #include <window.h>
 #include <defines.h>
 #include <debug_draw.h>
+#include <mind.h>
 
 #include <cstdio>
 
@@ -79,7 +80,7 @@ void Game::handleInput() {
         int x, y;
         SDL_GetMouseState(&x, &y);
 
-        world_.target()->getKinematic()->position = Vec2(x, y);
+        world_.target()->getMind()->setDest(Vec2(x, y));
       }
     }
 

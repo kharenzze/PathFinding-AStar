@@ -30,6 +30,8 @@ class Agent {
     void setAgentGroup(AgentGroup* ag) { body_.setAgentGroup(ag); }
     const KinematicStatus* getKinematic() const { return body_.getKinematic(); }
     KinematicStatus* getKinematic() { return body_.getKinematic(); }
+    Body* getBody() { return &body_; }
+    Mind* getMind() { return &mind_; }
   private:
     World * world_;
 

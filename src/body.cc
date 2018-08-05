@@ -90,6 +90,10 @@ void Body::update(const uint32_t dt) {
     case Body::SteeringMode::Flocking: 
       this->flocking(state_, agentGroup_, target_->getKinematic(), &steering);
       break;
+    case Body::SteeringMode::Pathfind:
+      this->arrive(state_, target_->getKinematic(), &steering);
+      //this->pathfind(target_, &steering);
+      break;
     }
     if (isKinematic) {
       this->applyKinematicSteering(kinematicSteering, dt);
@@ -239,6 +243,8 @@ void Body::arrive(const KinematicStatus& character, const KinematicStatus* targe
   const float distance = dir.length();
   float targetSpeed = max_speed_;
   if (distance < _slowRadius) {
+    if (distance == 0)
+      return;
     targetSpeed *= distance / _slowRadius;
   }
 
@@ -430,4 +436,8 @@ void Body::flocking(const KinematicStatus& character, AgentGroup* agentGroup,con
 
   steering->linear = seek.linear * 0.6f + separation.linear * 0.3f + cohesion.linear * 0.1f;
   steering->angular = face.angular * 0.7f + align.angular * 0.3f;
+}
+
+void Body::pathfind(const Agent* me, Steering* steering) const {
+
 }

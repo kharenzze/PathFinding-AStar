@@ -41,6 +41,8 @@ class World {
     AgentGroup ia_;
     Sprite worldImg;
     uint8_t cost[MAP_L1_WIDTH][MAP_L1_HEIGHT];
+
+    void mapPosToCostCell(MathLib::Vec2 pos, int *x, int *y);
 };
 
 #endif
