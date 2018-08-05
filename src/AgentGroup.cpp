@@ -20,12 +20,14 @@ void AgentGroup::shutdown() {
 }
 
 void AgentGroup::update(const uint32_t dt) {
+  return; //Agents disabled
   for (int i = 0; i < N_AGENTS; i++) {
     agents_[i].update(dt);
   }
 }
 
 void AgentGroup::render() const {
+  return; //Agents disabled
   for (int i = 0; i < N_AGENTS; i++) {
     agents_[i].render();
   }
