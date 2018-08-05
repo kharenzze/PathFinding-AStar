@@ -16,8 +16,8 @@
 
 #define GAME_NAME "Steering Behaviors Demo"
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 1024
 
 #define TICKS_PER_SECOND 30
 #define MAX_FRAME_SKIP 10

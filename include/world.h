@@ -14,15 +14,13 @@
 #include <cstdio>
 #include <agent.h>
 #include <AgentGroup.h>
+#include <sprite.h>
 
 using MathLib::Vec2;
 
 class World {
   public:
-    World() {
-      target_.init(this, Body::Color::Red, Body::Type::Manual);
-      ia_.init(this, Body::Color::Green, Body::Type::Autonomous);
-    };
+    World();
     ~World() {
       target_.shutdown();
       ia_.shutdown();
@@ -36,6 +34,7 @@ class World {
   private:
     Agent target_;
     AgentGroup ia_;
+    Sprite worldImg;
 };
 
 #endif
