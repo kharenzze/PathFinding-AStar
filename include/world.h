@@ -8,6 +8,9 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__ 1
 
+#define MAP_L1_WIDTH 128                //Size of screen in tiles
+#define MAP_L1_HEIGHT 128
+
 #include <mathlib/vec2.h>
 #include <defines.h>
 
@@ -29,12 +32,15 @@ class World {
     void update(const float dt) { target_.update(dt); ia_.update(dt); }
     void render();
 
+    void loadCostMap();
+
     Agent* target() { return &target_; }
     AgentGroup* ia() { return &ia_; }
   private:
     Agent target_;
     AgentGroup ia_;
     Sprite worldImg;
+    uint8_t cost[MAP_L1_WIDTH][MAP_L1_HEIGHT];
 };
 
 #endif
